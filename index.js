@@ -89,7 +89,7 @@ module.exports = class Qbittorrent {
         if (err) {
           if (err.code === 'ECONNREFUSED') {
             this.logError(
-              `Could not connect to qBittorrent with these settings: ${JSON.stringify(
+              `Could not connect with these settings: ${JSON.stringify(
                 this.qbitsettings
               )}`
             );
@@ -202,7 +202,7 @@ module.exports = class Qbittorrent {
           message = `Removed ${name}. ${self.seedInfo(torrent)}`;
       }
 
-      this.logRemoval(message);
+      this.logInfo(message, { color: 'red' });
     }
   }
 
@@ -216,7 +216,7 @@ module.exports = class Qbittorrent {
         this.logError(`Error adding ${torrentPath}`);
         return;
       }
-      this.logAddition(`Added ${filename(torrentPath)}`);
+      this.logInfo(`Added ${filename(torrentPath)}`, { color: 'green' });
       this.moveTorrent(torrentPath);
     });
   }
