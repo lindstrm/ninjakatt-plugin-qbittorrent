@@ -132,7 +132,7 @@ module.exports = class Qbittorrent {
 
   checkDownload() {
     this.client.getTorrents((error, items) => {
-      if (!items) { return }
+      if (!items || items.lentgh === 0 || error) { return }
       const currentlyDownloading = items.filter((x) => x.amount_left > 0);
       this.currentlyDownloading.forEach((hash) => {
         const torrentIndex = items.findIndex(
