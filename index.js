@@ -35,6 +35,7 @@ module.exports = class Qbittorrent {
 
   async setup() {
     this.logDebug('Setting up qbittorrent plugin');
+    this.connected = false;
     this.qb = new qb(this.qbitsettings);
     this.login();
   }
@@ -51,7 +52,7 @@ module.exports = class Qbittorrent {
   /********* Event Functions *********/
 
   actOnFileAdd = (path) => {
-    if (isTorrent(path)) {
+    if (this.connected && isTorrent(path)) {
       this.addTorrent(path);
     }
   };
@@ -99,10 +100,14 @@ module.exports = class Qbittorrent {
           setTimeout(() => {
             this.login();
           }, 60000);
+          this.connected = false;
+          return;
         }
         this.logInfo('Connected');
         this.checkSeed();
         this.checkDownload();
+
+        this.connected = true;
       }.bind(this)
     );
   }
