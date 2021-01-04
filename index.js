@@ -207,7 +207,7 @@ module.exports = class Qbittorrent {
           message = `Removed ${name}. ${self.seedInfo(torrent)}`;
       }
 
-      this.logInfo(message, { color: 'red' });
+      self.logInfo(message, { color: 'red' });
     }
   }
 
