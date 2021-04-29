@@ -144,6 +144,11 @@ module.exports = class Qbittorrent {
           (torrent) => torrent.hash === hash
         );
         const torrent = items[torrentIndex];
+
+        if (!torrent) {
+          return delete this.currentlyDownloading[torrentIndex];
+        }
+
         if (torrent.amount_left === 0) {
           this.logInfo(`${torrent.name} has finished downloading`);
           global.emitter.emit(
@@ -218,7 +223,7 @@ module.exports = class Qbittorrent {
 
     this.client.addTorrentFile(torrentPath, options, (error) => {
       if (error) {
-        this.logError(`Error adding ${torrentPath}`);
+        this.logError(`Error adding ${torrentPath}`, error);
         return;
       }
       this.logInfo(`Added ${filename(torrentPath)}`, { color: 'green' });
