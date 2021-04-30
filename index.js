@@ -62,6 +62,7 @@ module.exports = class Qbittorrent {
   getList = (req, res) => {
     this.client.getTorrents((error, list) => {
       if (error) {
+        this.logDebug(`Error from qbittorrent getList: ${error}`);
         return res.status(400).send();
       }
       return res.status(200).send(
@@ -76,6 +77,7 @@ module.exports = class Qbittorrent {
   getTransferInfo = (req, res) => {
     this.client.syncMaindata((error, info) => {
       if (error) {
+        this.logDebug(`Error from qbittorrent getTransferInfo: ${error}`);
         return res.status(400).send();
       }
       return res.status(200).send(info);
