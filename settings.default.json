@@ -7,5 +7,9 @@
   "seed": {
     "ratio": 10,
     "days": 14
+  },
+  "saveDirReplace": {
+    "match": "z:.",
+    "replaceWith": "/downloads/"
   }
 }

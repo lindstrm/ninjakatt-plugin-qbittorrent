@@ -219,10 +219,11 @@ module.exports = class Qbittorrent {
   }
 
   addTorrent(torrentPath) {
-    const options = {
-      savepath: removeFilename(torrentPath),
-    };
-
+    let savepath = removeFilename(torrentPath)
+    if (this.settings.saveDirReplace && this.settings.saveDirReplace.match && this.settings.saveDirReplace.replaceWith) {
+      savepath = savepath.replace(new RegExp(this.settings.saveDirReplace.match), this.settings.saveDirReplace.replaceWith)
+    }
+    const options = { savepath };
     this.client.addTorrentFile(torrentPath, options, (error) => {
       if (error) {
         this.logError(`Error adding ${torrentPath}`, error);
