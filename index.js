@@ -238,7 +238,7 @@ module.exports = class Qbittorrent {
     const tempPath = path.resolve(global.settingsPath, 'loadedTorrents');
     fs.ensureDirSync(tempPath);
 
-    const newPath = `${tempPath}\\${filename(torrentPath)}`;
+    const newPath = `${tempPath}${path.sep}${filename(torrentPath)}`;
 
     return fs
       .move(torrentPath, newPath, { overwrite: true })
